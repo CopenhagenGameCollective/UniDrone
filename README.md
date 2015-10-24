@@ -1,9 +1,14 @@
-
-  _   _      _ ___                    
- | | | |_ _ (_)   \ _ _ ___ _ _  ___  
- | |_| | ' \| | |) | '_/ _ \ ' \/ -_) 
-  \___/|_||_|_|___/|_| \___/_||_\___| 
-                                                                                     
+ __  __              ____                                   
+/\ \/\ \          __/\  _`\                                 
+\ \ \ \ \    ___ /\_\ \ \/\ \  _ __   ___     ___      __   
+ \ \ \ \ \ /' _ `\/\ \ \ \ \ \/\`'__\/ __`\ /' _ `\  /'__`\ 
+  \ \ \_\ \/\ \/\ \ \ \ \ \_\ \ \ \//\ \_\ \/\ \/\ \/\  __/ 
+   \ \_____\ \_\ \_\ \_\ \____/\ \_\\ \____/\ \_\ \_\ \____\
+    \/_____/\/_/\/_/\/_/\/___/  \/_/ \/___/  \/_/\/_/\/____/
+                                                            
+                                                            
+                       
+                                               
 http://www.copenhagengamecollective.org/projects/unidrone/
 
 Unity + Node.js + AR.drone == UniDrone!
@@ -11,7 +16,7 @@ Unity + Node.js + AR.drone == UniDrone!
 
 Introduction
 -------------------------
-UniDrone is an open-source project that couples the AR.drone with Unity. It creates a node.js server that listens to udp messages.
+UniDrone is an open-source project that couples the AR.drone with Unity. It creates a node.js server that listens to OSC messages.
 
 UniMove was created by Patrick Jarnfelt and Tim Garbos of the Copenhagen Game Collective, and used for their Drone concert.
 The drone concert uses UniMove to utilize the move controllers and sends these commands to the node.js server. 
@@ -27,6 +32,7 @@ Open the terminal and navigate to the server folder
 >run: npm install 
 (this will install the package dependencies)
 
+
 How to run
 -------------------------
 For the server:
@@ -38,11 +44,23 @@ Arguments sent to the app
 argument1 = Target ip for the drone (the drone must be connected to the same network as the control computer with a manually set ip address)
 argument2 = The index of this drone (0 for first drone, 1 for next etc)
 
-This script only controls one drone. Run one more script in another terminal and change the arguments to control more drones.
+This script only controls one drone. If you are connected to the drone directly, then the ip is 192.168.1.1
+
+## Multiple Drones
+
+To control multiple drones, you need to establish the following conditions:
+
+- Each drone must be on the same Wifi network
+- Each drone must have a separate unique static IP on the network
+- Client machine must be on same wifi network as drones
+- Client machine should send control commands to the different IPs of drones.
+
+Run a drone_server script for each drone that is connected to the server
 
 
 Requirements
 -------------------------
-
  * Unity 
  * Node.js installed (run node and npm commands in the terminal to test)
+ * A dedicated wireless router
+ * At least one AR-Drone 2.0 quadrocopter
