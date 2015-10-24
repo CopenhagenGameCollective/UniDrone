@@ -1,0 +1,27 @@
+{
+  "name": "drone_server",
+  "version": "0.1.0",
+  "description": "This is project to control the Ar.Drones from Unity",
+  "main": "drone_server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/CopenhagenGameCollective/UniDrone.git"
+  },
+  "keywords": [
+    "node.js",
+    "drone",
+    "unity"
+  ],
+  "author": "Patrick Jarnfelt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CopenhagenGameCollective/UniDrone/issues"
+  },
+  "homepage": "https://github.com/CopenhagenGameCollective/UniDrone#readme",
+  "dependencies": {
+    "ar-drone": "^0.3.3",
+    "http": "0.0.0",
+    "keypress": "^0.2.1",
+    "osc-min": "^0.2.0"
+  }
+}
