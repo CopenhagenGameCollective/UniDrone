@@ -1,5 +1,9 @@
 
-
+  _   _      _ ___                    
+ | | | |_ _ (_)   \ _ _ ___ _ _  ___  
+ | |_| | ' \| | |) | '_/ _ \ ' \/ -_) 
+  \___/|_||_|_|___/|_| \___/_||_\___| 
+                                                                                     
 http://www.copenhagengamecollective.org/projects/unidrone/
 
 Unity + Node.js + AR.drone == UniDrone!
