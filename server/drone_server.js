@@ -1,16 +1,19 @@
 // Includes
 var osc = require('osc-min'),
-  dgram = require('dgram'),
+  udp = require('dgram'),
   arDrone = require('ar-drone'),
   keypress = require('keypress'),
   http = require('http')
   tools = require('./tools');
 
-var ipDrone = '192.168.1.102';
-//var ipDrone = '192.168.1.1';
-var receivePorts = [12001, 12002];
-var prefix = ['/d1_', '/d0_'];
+// standard ip for the drone
+var ipDrone = '192.168.1.1';
+
+var receivePort = 12001;
 var droneIndex = 0;
+
+
+// standard ip for sending info about NavData
 var ipTarget = '192.168.1.225';
 var outport = 12345;
 
@@ -20,8 +23,7 @@ var battery = 1,
   front_back = 0,
   left_right = 0,
   is_in_air = false,
-  is_in_air_test = false,
-  lastPng;
+  is_in_air_test = false;
 
 process.argv.forEach(function(val, index) {
   if (index > 1) {
@@ -40,7 +42,7 @@ var client = arDrone.createClient({
   'ip': ipDrone
 });
 
-var udpSend = dgram.createSocket('udp4');
+var udpSend = udp.createSocket('udp4');
 
 client.disableEmergency();
 client.config('general:navdata_demo', 'TRUE');
@@ -143,7 +145,7 @@ process.stdin.resume();
 
 
 // When getting message from Unity
-var udp = dgram.createSocket('udp4', function(msg) {
+var udp = udp.createSocket('udp4', function(msg) {
   var error, buf;
   try {
     var oscmessage = osc.fromBuffer(msg);
@@ -242,7 +244,8 @@ var udp = dgram.createSocket('udp4', function(msg) {
     return console.log('invalid OSC packet ' + _error);
   }
 });
-udp.bind(receivePorts[droneIndex]);
+
+udp.bind(receivePort + parseInt(droneIndex));
 
 client.on('navdata', function(navdata) {
   if (!navdata || !navdata.demo || !navdata.demo.velocity) {
@@ -268,7 +271,7 @@ var send = function send() {
   //console.log('battery: ' + battery );
   var buf;
   buf = osc.toBuffer({
-    address: prefix[droneIndex] + 'takeoff',
+    address: '/d'+droneIndex+'_' + 'takeoff',
     args: [{
       type: 'float',
       value: is_in_air ? 1 : 0
@@ -278,7 +281,7 @@ var send = function send() {
   udpSend.send(buf, 0, buf.length, outport, ipTarget);
 
   buf = osc.toBuffer({
-    address: prefix[droneIndex] + 'takedown',
+    address: '/d'+droneIndex+'_' + 'takedown',
     args: [{
       type: 'float',
       value: is_in_air ? 0 : 1
@@ -289,7 +292,7 @@ var send = function send() {
 
   if (left_right < 0) {
     buf = osc.toBuffer({
-      address: prefix[droneIndex] + 'velocityLeft',
+      address: '/d'+droneIndex+'_' + 'velocityLeft',
       args: [{
         type: 'float',
         value: tools.clamp01((left_right * -1) / 1600)
@@ -299,7 +302,7 @@ var send = function send() {
   }
   if (left_right > 0) {
     buf = osc.toBuffer({
-      address: prefix[droneIndex] + 'velocityRight',
+      address: '/d'+droneIndex+'_' + 'velocityRight',
       args: [{
         type: 'float',
         value: tools.clamp01(left_right / 1600)
@@ -308,7 +311,7 @@ var send = function send() {
     udpSend.send(buf, 0, buf.length, outport, ipTarget);
   }
   buf = osc.toBuffer({
-    address: prefix[droneIndex] + 'velocity',
+    address: '/d'+droneIndex+'_' + 'velocity',
     args: [{
       type: 'float',
       value: tools.clamp01((Math.abs(left_right) + Math.abs(front_back)) /
@@ -318,7 +321,7 @@ var send = function send() {
   udpSend.send(buf, 0, buf.length, outport, ipTarget);
 
   buf = osc.toBuffer({
-    address: prefix[droneIndex] + 'altitude',
+    address: '/d'+droneIndex+'_' + 'altitude',
     args: [{
       type: 'float',
       value: altitude
@@ -326,17 +329,15 @@ var send = function send() {
   });
   udpSend.send(buf, 0, buf.length, outport, ipTarget);
   buf = osc.toBuffer({
-    address: prefix[droneIndex] + 'battery',
+    address: '/d'+droneIndex+'_' + 'battery',
     args: [{
       type: 'float',
       value: battery
     }]
   });
-  console.log(battery);
+  console.log('Battery: ' + battery);
   udpSend.send(buf, 0, buf.length, outport, ipTarget);
-
-
-      client.up(0.25);
+  //client.up(0.25);
 };
 
 setInterval(send, 500);

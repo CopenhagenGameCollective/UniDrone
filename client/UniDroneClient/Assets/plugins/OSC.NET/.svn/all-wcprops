@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET
+END
+jsOSCBundle.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCBundle.cs
+END
+jsOSCMessage.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCMessage.cs.meta
+END
+jsOSCReceiver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCReceiver.cs.meta
+END
+jsOSCPacket.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCPacket.cs.meta
+END
+jsOSCTransmitter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCTransmitter.cs
+END
+jsOSCBundle.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCBundle.cs.meta
+END
+jsOSCTransmitter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCTransmitter.cs.meta
+END
+jsOSCMessage.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCMessage.cs
+END
+jsOSCReceiver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCReceiver.cs
+END
+jsOSCPacket.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/cphgc_mirrorman/!svn/ver/9/Assets/Plugins/OSC.NET/jsOSCPacket.cs
+END
