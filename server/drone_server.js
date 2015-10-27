@@ -14,7 +14,7 @@ var droneIndex = 0;
 
 
 // standard ip for sending info about NavData
-var ipTarget = '192.168.1.225';
+var ipTarget = '127.0.0.1';
 var outport = 12345;
 
 

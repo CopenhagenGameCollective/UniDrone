@@ -22,11 +22,12 @@ public class DroneControlPSMove : MonoBehaviour
 	private static List<UniMoveController> moves = new List<UniMoveController>();
 	
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		client = new OSCClient (IPAddress.Parse (Host), port + droneIndex);
 		Time.maximumDeltaTime = 0.1f;
 		int count = UniMoveController.GetNumConnected();
+		Debug.Log (count);
 		// Iterate through all connections (USB and Bluetooth)
 		if (moves.Count == 0) {
 			for (int i = 0; i < count; i++) {
@@ -53,7 +54,8 @@ public class DroneControlPSMove : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(moves.Count <= droneIndex) return;
+
+		if(droneIndex >= moves.Count) return;
 
 		UniMoveController move = moves[droneIndex];
 
@@ -90,48 +92,47 @@ public class DroneControlPSMove : MonoBehaviour
 				}
 			}
 		}
-		if(move.IsButtonDown(PSMoveButton.Square)){
+		if(move.GetButtonDown(PSMoveButton.Square)){
 			if(timer > 0.2f){
 				SendToNode("/counterClockwise", 0.5f);
 			}
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Square)){
+		else if(move.GetButtonUp(PSMoveButton.Square)){
 			SendToNode("/counterClockwise", 0);
 		}
-		else if(move.IsButtonDown(PSMoveButton.Triangle)){
+		else if(move.GetButtonDown(PSMoveButton.Triangle)){
 			if(timer > 0.2f){
 				SendToNode("/clockwise", 0.5f);
 			}
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Triangle)){
+		else if(move.GetButtonUp(PSMoveButton.Triangle)){
 			SendToNode("/clockwise", 0);
 		}
 		
-		else if(move.IsButtonDown(PSMoveButton.Cross)){
+		else if(move.GetButtonDown(PSMoveButton.Cross)){
 			if(timer > 0.2f){
 				SendToNode("/down", 0.5f);
 			}
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Cross)){
+		else if(move.GetButtonUp(PSMoveButton.Cross)){
 			SendToNode("/down", 0);
 		}
-		else if(move.IsButtonDown(PSMoveButton.Circle)){
+		else if(move.GetButtonDown(PSMoveButton.Circle)){
 			if(timer > 0.2f){
 				SendToNode("/up", 0.5f);
 			}
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Circle)){
+		else if(move.GetButtonUp(PSMoveButton.Circle)){
 			SendToNode("/up", 0);
 			SendToNode("/stop", 0);
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Move)){
-			isInAir[index] = false;
+		else if(move.GetButtonUp(PSMoveButton.Move)){
 			SendToNode("/land", 1);
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Select)){
+		else if(move.GetButtonUp(PSMoveButton.Select)){
 			SendToNode("/flip", 1);
 		}
-		else if(move.IsButtonReleased(PSMoveButton.Start)){
+		else if(move.GetButtonUp(PSMoveButton.Start)){
 			SendToNode("/wave", 1);
 		}
 		else if(move.Trigger <= 0.8f && !doingAflip){
@@ -139,10 +140,10 @@ public class DroneControlPSMove : MonoBehaviour
 				SendToNode("/stop", 0);
 				
 			}
-			move.SetLED(Color.black);
+			move.SetLED(MoveControllerColor * 0.2f);
 		}
 		
-		if(move.IsButtonReleased(PSMoveButton.PS)){
+		if(move.GetButtonUp(PSMoveButton.PS)){
 			isInAir = false;
 			//TODO: Make panic
 			SendToNode("/land", 1);
@@ -172,8 +173,12 @@ public class DroneControlPSMove : MonoBehaviour
 	}
 	public void SendToNode (string address, object val)
 	{
-		OSCMessage message = new OSCMessage (address, val);
-		client.Send (message);
+		try {
+			OSCMessage message = new OSCMessage (address, val);
+			client.Send (message);
+		} catch (Exception e) {
+		}
+
 	}
 	
 	void OnApplicationQuit ()
