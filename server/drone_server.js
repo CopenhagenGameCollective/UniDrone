@@ -14,7 +14,7 @@ var droneIndex = 0;
 
 
 // standard ip for sending info about NavData
-var ipTarget = '127.0.0.1';
+var ipTarget = '192.168.3.173';
 var outport = 12345;
 
 
@@ -45,6 +45,7 @@ var client = arDrone.createClient({
 var udpSend = udp.createSocket('udp4');
 
 client.disableEmergency();
+client.ftrim();
 client.config('general:navdata_demo', 'TRUE');
 client.config('control:altitude_max', 8000);
 client.config('control:control_vz_max', 2000);
@@ -212,6 +213,7 @@ var udp = udp.createSocket('udp4', function(msg) {
       client.stop();
       console.log('land');
       client.land();
+      client.disableEmergency();
       is_in_air = false;
     }
     if (oscmessage.address === '/flip') {

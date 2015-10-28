@@ -71,21 +71,21 @@ public class DroneControlPSMove : MonoBehaviour
 				SendToNode("/startdrone", 1);
 			}
 			if(timer > 0.2f){
-				if(move.Acceleration.x > 0.01f){
-					SendToNode("/left", move.Acceleration.x * move.Acceleration.x * 2);
+				if(move.Acceleration.x > 0.02f){
+					SendToNode("/left", move.Acceleration.x * move.Acceleration.x );
 				}
-				else if(move.Acceleration.x < -0.01f){
-					SendToNode("/right", (move.Acceleration.x * move.Acceleration.x * 2));
+				else if(move.Acceleration.x < -0.02f){
+					SendToNode("/right", (move.Acceleration.x * move.Acceleration.x ));
 				}else{
 					SendToNode("/left", 0);
 					SendToNode("/right", 0);
 				}
 				
-				if(move.Acceleration.y < -0.01f){
-					SendToNode("/front", move.Acceleration.y * move.Acceleration.y * 2);
+				if(move.Acceleration.y < -0.02f){
+					SendToNode("/front", move.Acceleration.y * move.Acceleration.y );
 				}
-				else if(move.Acceleration.y > 0.01f){
-					SendToNode("/back", move.Acceleration.y * move.Acceleration.y * 2);
+				else if(move.Acceleration.y > 0.02f){
+					SendToNode("/back", move.Acceleration.y * move.Acceleration.y );
 				}else{
 					SendToNode("/front", 0);
 					SendToNode("/back", 0);
@@ -111,7 +111,7 @@ public class DroneControlPSMove : MonoBehaviour
 		
 		else if(move.GetButtonDown(PSMoveButton.Cross)){
 			if(timer > 0.2f){
-				SendToNode("/down", 0.5f);
+				SendToNode("/down", 0.2f);
 			}
 		}
 		else if(move.GetButtonUp(PSMoveButton.Cross)){
@@ -119,7 +119,7 @@ public class DroneControlPSMove : MonoBehaviour
 		}
 		else if(move.GetButtonDown(PSMoveButton.Circle)){
 			if(timer > 0.2f){
-				SendToNode("/up", 0.5f);
+				SendToNode("/up", 0.2f);
 			}
 		}
 		else if(move.GetButtonUp(PSMoveButton.Circle)){
