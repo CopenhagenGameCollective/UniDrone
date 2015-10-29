@@ -17,6 +17,7 @@ public class DroneControlPSMove : MonoBehaviour
 	private bool isInAir = false, doingAflip = false;
 	private float timer = 0, timerNoPress = 0;
 	private float prevTrigger = 0;
+	public float power = 1; //1f is max
 
 
 	// We save a list of Move controllers statically, so we only have one list
@@ -73,20 +74,20 @@ public class DroneControlPSMove : MonoBehaviour
 			}
 			if(timer > 0.2f){
 				if(move.Acceleration.x > 0.02f){
-					SendToNode("/left", move.Acceleration.x * move.Acceleration.x );
+					SendToNode("/left", move.Acceleration.x * move.Acceleration.x * 2.2f * power);
 				}
 				else if(move.Acceleration.x < -0.02f){
-					SendToNode("/right", (move.Acceleration.x * move.Acceleration.x ));
+					SendToNode("/right", (move.Acceleration.x * move.Acceleration.x * 2.2f *power));
 				}else{
 					SendToNode("/left", 0);
 					SendToNode("/right", 0);
 				}
 				
 				if(move.Acceleration.y < -0.02f){
-					SendToNode("/front", move.Acceleration.y * move.Acceleration.y );
+					SendToNode("/front", move.Acceleration.y * move.Acceleration.y * 2.2f * power);
 				}
 				else if(move.Acceleration.y > 0.02f){
-					SendToNode("/back", move.Acceleration.y * move.Acceleration.y );
+					SendToNode("/back", move.Acceleration.y * move.Acceleration.y * 2.2f * power );
 				}else{
 					SendToNode("/front", 0);
 					SendToNode("/back", 0);
