@@ -18,6 +18,7 @@ public class DroneControlPSMove : MonoBehaviour
 	private float timer = 0, timerNoPress = 0;
 	private float prevTrigger = 0;
 
+
 	// We save a list of Move controllers statically, so we only have one list
 	private static List<UniMoveController> moves = new List<UniMoveController>();
 	

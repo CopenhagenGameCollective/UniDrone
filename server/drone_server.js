@@ -7,14 +7,14 @@ var osc = require('osc-min'),
   tools = require('./tools');
 
 // standard ip for the drone
-var ipDrone = '192.168.1.1';
+var ipDrone = '192.168.1.106';
 
 var receivePort = 12001;
 var droneIndex = 0;
 
 
 // standard ip for sending info about NavData
-var ipTarget = '192.168.3.173';
+var ipTarget = '192.168.1.3';
 var outport = 12345;
 
 
