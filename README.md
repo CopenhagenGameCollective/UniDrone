@@ -5,10 +5,7 @@
   \ \ \_\ \/\ \/\ \ \ \ \ \_\ \ \ \//\ \_\ \/\ \/\ \/\  __/ 
    \ \_____\ \_\ \_\ \_\ \____/\ \_\\ \____/\ \_\ \_\ \____\
     \/_____/\/_/\/_/\/_/\/___/  \/_/ \/___/  \/_/\/_/\/____/
-                                                            
-                                                            
-                       
-                                               
+
 http://www.copenhagengamecollective.org/projects/unidrone/
 
 Unity + Node.js + AR.drone == UniDrone!
